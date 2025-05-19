@@ -1,6 +1,5 @@
 from dotenv import load_dotenv, dotenv_values 
 import os
-import numpy as np
 # loading variables from .env file
 load_dotenv()
 local_path = os.getenv("LOCAL_PATH")
