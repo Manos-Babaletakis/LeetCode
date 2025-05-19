@@ -1,7 +1,6 @@
-from dotenv import load_dotenv, dotenv_values 
 import os
-import numpy as np
-# loading variables from .env file
+
+from dotenv import load_dotenv, dotenv_values 
 load_dotenv()
 local_path = os.getenv("LOCAL_PATH")
 
@@ -22,16 +21,16 @@ class Solution(object):
         l3 = placeholder
         residue = 0
         
-        while l1.val or l2.val or residue:
+        while l1 or l2 or residue:
             sum = residue
             
             #check l1
-            if l1.val:
+            if l1:
                 sum += l1.val
                 l1 = l1.next
 
             #check l2
-            if l2.val:
+            if l2:
                 sum += l2.val
                 l2 = l2.next
             
@@ -39,13 +38,32 @@ class Solution(object):
             placeholder = placeholder.next
             residue = sum//10
              
-             
         return l3.next
         
+        
+        
+list_1 = [9,9,9,9]          
+placeholder_1 = ListNode()
+l1 = placeholder_1  
+for i in list_1:
+    placeholder_1.next = ListNode(i)
+    placeholder_1 = placeholder_1.next
+    
+    
+list_2 = [9,9,9,9,9,9,9]
+placeholder_2 = ListNode()
+l2 = placeholder_2
+for i in list_2:
+    placeholder_2.next = ListNode(i)
+    placeholder_2 = placeholder_2.next
 
-# l1 = ListNode([9,9,9,9,9,9,9])
-# l2 = ListNode([9,9,9,9])
-# output = ListNode([8,9,9,9,0,0,0,1])
+list_o = [8,9,9,9,0,0,0,1]
+placeholder_o = ListNode()
+output = placeholder_o
+for i in list_o:
+    placeholder_o.next = ListNode(i)
+    placeholder_o = placeholder_o.next
 
-# sol = Solution()
-# print(sol.addTwoNumbers(l1, l2) == output)
+
+sol = Solution()
+print(sol.addTwoNumbers(l1.next, l2.next) == output.next)
