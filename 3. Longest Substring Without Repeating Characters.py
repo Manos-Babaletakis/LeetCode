@@ -26,8 +26,8 @@ class Solution(object):
         
         return max
     
-total_string = 'abcabcbb'
-output = 
+total_string = 'dvtdtxurd'
+output = 5
 
 sol = Solution()
-print(sol.lengthOfLongestSubstring(l1.next, l2.next) == output.next)
+print(sol.lengthOfLongestSubstring(total_string) == output)
