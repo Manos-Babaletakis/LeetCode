@@ -12,8 +12,20 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        for
+        dic = {}
+        for index, num in enumerate(nums):
+            dic[target - num] = index
+        for index, num in enumerate(nums):
+            if num in dic:
+                if dic[num] != index:
+                    if dic[num] > index:
+                        return [index, dic[num]]
+                    return [dic[num], index]
+                
         
-sol = Solution([3,6,7,2,12,15,22], 29)
 
-print(sol.twoSum)
+numbers = [3,6,7,2,12,15,22]
+target = 29
+
+sol = Solution()
+print(sol.twoSum(numbers, target))
