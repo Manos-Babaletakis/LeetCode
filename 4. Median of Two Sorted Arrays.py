@@ -5,41 +5,58 @@ load_dotenv()
 local_path = os.getenv("LOCAL_PATH")
 
 class Solution(object):
+    def bigger_list(self, list_1, list_2):
+        if len(list_1) > len(list_2):
+            return list_2, list_1
+        return list_1, list_2
+    
     def findMedianSortedArrays(self, nums1, nums2):
         """
         :type nums1: List[int]
         :type nums2: List[int]
         :rtype: float
-        """
-        m_max = len(nums1)
-        n_max = len(nums2)
+        """    
+        #make sure len(nums1) >= len(nums2)     
+        nums1, nums2 = self.bigger_list(nums1, nums2)
         
-        placeholder_1 = 0
-        placeholder_2 = 0
+        m_max = len(nums1) #total items of nums1
+        n_max = len(nums2) #total items of nums2
         
-        m=0
-        n=0
+        total = m_max + n_max #total items of nums1 + nums2 (total list)
+        left = (m_max + n_max + 1) // 2 #total items of left partition of total list
+        low = 0 #first item of total list
+        high = m_max #last item of nums1(biggest sublist)
         
-        for _ in range(0, (m_max + n_max)//2 + 1):
-            placeholder_2 = placeholder_1
-            if m < m_max and n < n_max:
-                if nums1[m] < nums2[n]:
-                    placeholder_1 = nums1[m]
-                    m += 1
+        while low <= high:
+            mid_m = (low + high) // 2 # find the mid index for nums1
+            mid_n = left - mid_m # find the mid index for nums2
+            
+            l_m = float('-inf')
+            l_n = float('-inf')
+            r_m = float('inf')
+            r_n = float('inf')
+            
+            if mid_m < m_max:
+                r_m = nums1[mid_m]
+            if mid_n < n_max:
+                r_n = nums2[mid_n]
+            if mid_m - 1 >= 0:
+                l_m = nums1[mid_m - 1]
+            if mid_n - 1 >= 0:
+                l_n = nums2[mid_n - 1]
+            
+            if l_m <= r_n and l_n <= r_m:
+                if total % 2 == 1:
+                    return max(l_m, l_n)
                 else:
-                    placeholder_1 = nums2[n]
-                    n += 1
-            elif m < m_max:
-                placeholder_1 = nums1[m]
-                m += 1
+                    return (max(l_m, l_n) + min(r_m, r_n)) / 2.0
+            elif l_m > r_n:
+                high = mid_m - 1
             else:
-                placeholder_1 = nums2[n]
-                n += 1
+                low = mid_m + 1
         
-        if (m_max + n_max)%2 == 1:
-            return placeholder_1
-        else:
-            return (placeholder_1 + placeholder_2)/2
+        return 0
+        
             
 list_1 = [1, 10, 35]
 list_2 = [1, 2, 5, 8, 14, 35.5, 78, 79, 80, 80.5, 81, 99, 101]
