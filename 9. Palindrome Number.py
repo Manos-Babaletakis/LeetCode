@@ -14,3 +14,9 @@ class Solution(object):
                 return False
             k+=1
         return True
+    
+    def isPalindrome_complex(self, x):
+        return str(x) == ''.join(reversed(str(x)))
+    
+    def isPalindrome_simple(self, x):
+        return str(x) == str(x)[::-1]
