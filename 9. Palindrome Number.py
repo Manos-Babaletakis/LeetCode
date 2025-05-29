@@ -20,3 +20,22 @@ class Solution(object):
     
     def isPalindrome_simple(self, x):
         return str(x) == str(x)[::-1]
+    
+    def isPalindrome_4(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x<0 or (x%10==0 and x!=0):
+            return False
+
+        k = 0
+        string_num = str(x)
+        while True:
+            try:
+                if string_num[k] != str(x%10):
+                    return False
+                x = x//10
+                k+=1
+            except:
+                return True
